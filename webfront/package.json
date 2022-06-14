@@ -1,0 +1,17 @@
+{
+  "name": "webfront",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "react": "^18.1.0",
+    "react-dom": "^18.1.0",
+    "typescript": "^4.7.3"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.12",
+    "@types/react-dom": "^18.0.5",
+    "parcel": "^2.6.0",
+    "parcel-bundler": "^1.12.5"
+  }
+}
