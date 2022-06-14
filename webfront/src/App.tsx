@@ -11,9 +11,10 @@ type Task = {
 const useContent = (
 	contract: ethers.Contract
 ) => {
-	const { taskCount, tasks } = contract.functions;
+	const { taskCount, tasks, createTask } = contract.functions;
 	const [taskCountValue, setTaskCountValue] = useState<string>("");
 	const [tasksValue, setTasksValue] = useState<Task[]>([]);
+	const [taskContent, setTaskContent] = useState<string>("");
 	useEffect(() => {
 		const getTasksCount = async () => {
 			const _taskCount = await taskCount();
@@ -32,9 +33,17 @@ const useContent = (
 		getTasksCount();
 	}, [])
 
+	const updateTaskContent = (e: React.ChangeEvent<HTMLInputElement>) => setTaskContent(e.target.value);
+	const requestCreateTask = async () => {
+		if (taskContent === "") return;
+		await createTask(taskContent);
+	}
+
 	return {
 		taskCount: taskCountValue,
 		tasks: tasksValue,
+		updateTaskContent,
+		requestCreateTask
 	}
 }
 
