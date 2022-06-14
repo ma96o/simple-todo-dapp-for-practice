@@ -48,9 +48,18 @@ const useContent = (
 }
 
 const Content: VFC<{contract: ethers.Contract}> = ({contract}) => {
-	const { taskCount, tasks } = useContent(contract);
+	const { taskCount, tasks, updateTaskContent, requestCreateTask } = useContent(contract);
+
+	const handleCreateTask = async () => {
+		await requestCreateTask();
+		window.location.reload();
+	}
 	return (
 		<div>
+			<p>
+				<input onChange={updateTaskContent} />
+				<button onClick={handleCreateTask}>Create Task</button>
+			</p>
 			<p>{`taskCount ... ${taskCount}`}</p>
 			<table>
 				<thead>
