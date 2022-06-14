@@ -39,8 +39,28 @@ const useContent = (
 }
 
 const Content: VFC<{contract: ethers.Contract}> = ({contract}) => {
-	const { taskCount } = useContent(contract);
-	return (<p>{`taskCount ... ${taskCount}`}</p>);
+	const { taskCount, tasks } = useContent(contract);
+	return (
+		<div>
+			<p>{`taskCount ... ${taskCount}`}</p>
+			<table>
+				<thead>
+					<tr>
+						<th>ID</th>
+						<th>Content</th>
+						<th>Status</th>
+					</tr>
+				</thead>
+				<tbody>
+					{tasks.map((t, index) => <tr key={`task.${index}`}>
+						<td>{t.id}</td>
+						<td>{t.content}</td>
+						<td>{t.isCompleted ? "Completed" : "Not Completed"}</td>
+					</tr>)}
+				</tbody>
+			</table>
+		</div>
+	)
 }
 
 const contractAddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
