@@ -9,5 +9,5 @@ cache
 artifacts
 
 #View
-webfront/.cash
+webfront/.cache
 webfront/dist
