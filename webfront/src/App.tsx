@@ -2,21 +2,39 @@ import React, { useEffect, useState, VFC } from "react";
 import { ethers } from "ethers";
 import artifact from "./abi/TodoList.json";
 
+type Task = {
+	id: string,
+	content: string,
+	isCompleted: boolean
+}
+
 const useContent = (
 	contract: ethers.Contract
 ) => {
-	const { taskCount } = contract.functions;
+	const { taskCount, tasks } = contract.functions;
 	const [taskCountValue, setTaskCountValue] = useState<string>("");
+	const [tasksValue, setTasksValue] = useState<Task[]>([]);
 	useEffect(() => {
-		const getTaskCount = async () => {
+		const getTasksCount = async () => {
 			const _taskCount = await taskCount();
 			setTaskCountValue(_taskCount);
+
+			const _tasks = [];
+			for (let i = 1; i <= _taskCount; i++) {
+				const _task = await tasks(i);
+				_tasks.push({
+					..._task,
+					id: i
+				})
+			}
+			setTasksValue(_tasks);
 		}
-		getTaskCount();
+		getTasksCount();
 	}, [])
 
 	return {
-		taskCount: taskCountValue
+		taskCount: taskCountValue,
+		tasks: tasksValue,
 	}
 }
 
