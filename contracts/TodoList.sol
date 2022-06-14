@@ -26,8 +26,8 @@ contract TodoList {
 
 	function toggleCompleted(uint _id) public {
 		Task memory _task = tasks[_id];
-		_task.isCompeted = !_task.isCompleted;
+		_task.isCompleted = !_task.isCompleted;
 		tasks[_id] = _task;
-		emit updateIsCompleted(_id, _task.isCompeted);
+		emit UpdateIsCompleted(_id, _task.isCompleted);
 	}
 }
